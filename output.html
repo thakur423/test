@@ -1,0 +1,49 @@
+<script type="text/javascript" src="data.json"></script>
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<script type="text/javascript">
+//var json = JSON.parse(require('data.json'));
+alert(JSON.stringify(oData));
+$(document).ready(function() {
+    $('#containerTable').DataTable({
+	dataType: 'json',
+	    "aaData":oData,
+		"columns" : [ {
+            "data" : "value"
+        }, {
+                "targets": 1,
+    "data": function ( row, type, val, meta ) {
+	if(row.develop === "") return "";
+	var res = String(row.develop).split(" ");
+	return  res[0] + " <--| behind   ||  Ahead |-- > " + res[1];
+        }
+		}, {
+                  "targets": 2,
+    "data": function ( row, type, val, meta ) {
+	if(row.release === "") return "";
+	var res = String(row.release).split(" ");
+	return  res[0] + " <--| behind   ||  Ahead |-- > " + res[1];
+        }
+        }, {
+                  "targets": 3,
+    "data": function ( row, type, val, meta ) {
+	if(row.master === "") return "";
+	var res = String(row.master).split(" ");
+	return  res[0] + " <--| behind   ||  Ahead |-- > " + res[1];
+        }
+        }]});
+} );
+</script>
+
+<table id="containerTable" class="display" width="100%" data-page-length="25" data-order="[[ 1, &quot;asc&quot; ]]">
+        <thead>
+            <tr>
+                <th>value</th>
+                <th>develop</th>
+                <th>release</th>
+                <th>master</th>
+            </tr>
+        </thead>
+        <tbody/>
+		</table>
